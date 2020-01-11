@@ -3,6 +3,8 @@ Code for input and output processing of  image_captionig_tree2tree https://githu
 
 More informations about how to use the code:
 
+gPb algorithm on original images: to obtain gPb of original images (need by glia pipeline) I have used https://github.com/vrabaud/gPb but you can also use the official matlab implementation of this algorithm
+
 input_processing/glia_pipeline: 
         
 	Download Graph Learning Library for Image Analysis (GLIA) from https://github.com/tingliu/glia in to input_processing/glia_pipeline directory and its dependency:
