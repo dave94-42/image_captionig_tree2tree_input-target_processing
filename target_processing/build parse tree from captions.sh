@@ -1,7 +1,7 @@
 #!/bin/bash
 
 command="java -mx150m -cp ./*: edu.stanford.nlp.parser.lexparser.LexicalizedParser -outputFormat xmlTree edu/stanford/nlp/models/lexparser/englishPCFG.ser.gz "
-direc=/home/serramazza/dataset/msCoco/parsed_sentences_preFiltered/
+direc=$2
 
 #read file and put it into my array
 my_array=()
