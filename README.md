@@ -11,3 +11,4 @@ input_processing/glia_pipeline:
 	
 	In input_processing/glia_pipeline/glia_pipeline.sh is needed to specify gPb_path,gray_images, new_path, model,final_results that are respectively directory of gPb algorithm applied to the original images, original images in gray scale, path in which you store the intermediate result of the pipeline (could be removed once you have final results), file containing the model for random forest, and final result (i.e. file describing the segmentation tree and segmentation map file)
 	
+input_processing/input_tree_label: after previous stage you get in the final result directory what is needed, along with the original images, to label crated trees with convolutional informations coming form alexNet. More info by running the code with --help argument
