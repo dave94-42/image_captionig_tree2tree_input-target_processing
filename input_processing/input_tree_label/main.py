@@ -1,11 +1,10 @@
 from alexNet import *
+from inception import MyInception,MyInceptionMap,OriginalInception
 import sys
-import random
-
-n_err=0
+from dataset import myDataset
 
 
-def label_tree_with_data(alex_image, alex_map,x, image_map, tree):
+def label_tree_with_data(alex_image, alex_map,x, image_map, tree,channel_dim):
 
     """
     function used to label tree structure previously build with cnn data
@@ -19,6 +18,7 @@ def label_tree_with_data(alex_image, alex_map,x, image_map, tree):
 
     #real_image -> alex net
     y = alex_image.forward(x)
+
     n_segment = int(np.amax(image_map))
     nodes_data = []
     for i in range(1,n_segment+1):
@@ -34,16 +34,14 @@ def label_tree_with_data(alex_image, alex_map,x, image_map, tree):
         assert non_zero.sum()!=0
         assert ( y.shape[2] == y_seg.shape[2] and y.shape[3] == y_seg.shape[3] )
 
-        #node_data = torch.zeros(256)
-        node_data = torch.ones(256)*np.finfo(float).min
+        node_data = torch.zeros(channel_dim)
         for j in range(1,non_zero.shape[0]):
             #for each element that is non zero take all channels and compute mean
             dim1 = int(non_zero[j][2])
             dim2 = int(non_zero[j][3])
             element = y[0,:,dim1,dim2]
-            #node_data += element
-            node_data = torch.max(node_data,element)
-        #node_data /= non_zero.shape[0]
+            node_data += element
+        node_data /= non_zero.shape[0]
         nodes_data.append(node_data)
 
     assert len(nodes_data) == n_segment
@@ -63,29 +61,43 @@ def write_on_file(file_name,dataset):
         string=tree.get_string_from_tree()
         f.write( name +" : ("+string[:-1]+");\n")
 
-
+def extract_image_reshape(dict):
+    to_return = []
+    for el in dict:
+        to_return.append(el["image_resized"])
+    return torch.cat(to_return)
 
 def main ():
     #check arguments
     args = sys.argv[1:]
-    if len(args) <1 or args[0]=="--help":
-        print("arguments:\n"
-              "1)final glia dir (i.e. dir containing files describing trees and segment map files\n"
-              "2)images dir\n"
-              "3)file to generate")
-        exit()
-
     #load data
     data = myDataset(args[0],args[1])
     dataSet = []
     for i in range (0,data.__len__()):
-        print("load" , i, "-th images" )
+        print("load_data" , i )
         x = data.__getitem__(i)
         dataSet.append(x)
 
-    #instanciate myAlex
-    alex_image = MyAlexNet()
-    alex_map = SimpleCNN()
+    if args[2]=="alex":
+        #instanciate myAlex
+        cnn_image = MyAlexNet()
+        cnn_map = MyAlexNetMap()
+        channel_dim = 256
+        original_model = None
+    elif args[2]=="inception":
+        cnn_image = MyInception()
+        cnn_map = MyInceptionMap()
+        channel_dim=192
+        original_model = OriginalInception()
+    else:
+        print ("CNN no recognized")
+        exit()
+
+    if args[2]=="inception":
+        print("processing roots")
+        roots = original_model(extract_image_reshape(dataSet))
+        original_model=None
+        print(roots.shape)
 
     i=0
     for data in dataSet:
@@ -94,15 +106,15 @@ def main ():
         map = data["map"]
         tree = data["tree"]
 
-        label_tree_with_data(alex_image, alex_map,x, map, tree)
+        label_tree_with_data(cnn_image, cnn_map,x, map, tree,channel_dim)
+        if args[2]=="inception":
+            tree.data = roots[i]
         tree.check_tree()
         i=i+1
-        print ("processed ",i,"-th images")
+        print ("processing segments of",i,"-th image")
 
     #write on specified file
-    print ("writing result on disk")
-    write_on_file(args[2],dataSet)
-
+    write_on_file(args[3],dataSet)
 
 
 if __name__ == '__main__':

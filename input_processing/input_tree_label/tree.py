@@ -72,7 +72,11 @@ class Tree:
         """
         string=""
         #write root
-        info = extract_string_fromTensor( str(self.data) )
+        #info = extract_string_fromTensor( str(self.data) )
+        info = "["
+        for el in self.data:
+            info+=(str(el.detach().numpy())+", ")
+        info=info[:-2]+"]"
         string = string + str(self.label) +  " data:" + info + ",("
 
         #first loop for leaf
