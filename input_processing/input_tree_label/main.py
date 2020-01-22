@@ -67,6 +67,13 @@ def extract_image_reshape(dict):
         to_return.append(el["image_resized"])
     return torch.cat(to_return)
 
+"""
+    #arguments:
+        #1)tree directory
+        #2)image directory
+	#3) wich CNN to use (only inception or alexNet)
+	#4)file to produce
+"""
 def main ():
     #check arguments
     args = sys.argv[1:]
