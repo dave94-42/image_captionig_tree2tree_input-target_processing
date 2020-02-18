@@ -15,6 +15,6 @@ input_processing/input_tree_label: after previous stage you get in the final res
 
 target_processing: 
 	
-	Download stanford parser https://nlp.stanford.edu/software/stanford-parser-full-2018-10-17.zip and put in its directory build parse tree from captions.sh file
+	Download stanford parser https://nlp.stanford.edu/software/stanford-parser-full-2018-10-17.zip and put in its directory the file named build_parse_tree_from_captions.sh
 	When you run it you need to specify as first argument the files containing the captions (more details about later) and directory in which you want to have resulting trees files (one for each image)
 	Format of captions file: name of image (image file name without extension) + “ : “ + caption to process. After script termination you will have in your specified target directory a single xml file for each image (the name is the same of the one in the caption file i.e. image file name without extension. This is needed by image_captionig_tree2tree in order to map input in respectively target)
