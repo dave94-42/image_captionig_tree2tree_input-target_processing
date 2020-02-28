@@ -4,9 +4,6 @@ import numpy as np
 This funciton reads a '.mhd' file using SimpleITK and return the image array, origin and spacing of the image.
 '''
 
-'''
-/run/user/1000/gvfs/sftp:host=c4130-v100.itc.unipi.it,user=serramazza/home/serramazza/dataset/BSR/BSDS500/glia_pipeline_thin/train/level_0.1_blur_0_5
-'''
 
 def load_itk(filename):
     # Reads the image using SimpleITK
