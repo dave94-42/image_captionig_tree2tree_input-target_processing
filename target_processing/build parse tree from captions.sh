@@ -1,5 +1,9 @@
 #!/bin/bash
 
+#parameters required: 
+#1) file with captions: format expected is nameOfFileToProduce : captionToParse
+#2)directory in wich store the generated trees
+
 command="java -mx150m -cp ./*: edu.stanford.nlp.parser.lexparser.LexicalizedParser -outputFormat xmlTree edu/stanford/nlp/models/lexparser/englishPCFG.ser.gz "
 direc=$2
 
