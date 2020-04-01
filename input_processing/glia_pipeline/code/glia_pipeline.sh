@@ -5,7 +5,7 @@ bin_path=	#dir containing glia executables
 gPb_path=	#dir containing gPb computed on original images
 gray_images=	#dir containing gray scaled images of the original images
 new_path=	#dir that will contain the temporary results of the pipeline (its content could be deleted after the process termination)
-model=		#file in which store the model parameters
+model=		#file in wuth random forest parameters
 final_results=	#dir in which store the final results
 
 file_names=()
