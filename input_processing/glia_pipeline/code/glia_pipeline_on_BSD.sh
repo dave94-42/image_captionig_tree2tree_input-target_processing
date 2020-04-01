@@ -1,12 +1,14 @@
 #!/bin/bash
 
 data_set_part=( "val/" "test/" "train/" )
-bin_path=~/glia/glia/bin;
-gPb_path=~/dataset/BSR/BSDS500/data/gPb/;
-new_path=~/dataset/BSR/BSDS500/glia_pipeline_base/;
-dataSet_path=~/dataset/BSR/BSDS500/data/;
-gray_images=~/dataset/BSR/BSDS500/data/gray_images/;
-truths=~/dataset/BSR/BSDS500/data/gt/;
+
+#insert your path
+bin_path=	#dir containing glia executables
+gPb_path=	#dir containing gPb computed on original images
+gray_images=	#dir containing gray scaled images of the original images
+new_path=	#dir that will contain the temporary results of the pipeline (its content could be deleted after the process termination)
+dataSet_path=	#dir containing the dataset
+truths=		#dir containing the ground truth segmentations
 
 for part in 2; do
 
