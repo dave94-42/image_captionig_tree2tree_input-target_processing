@@ -7,7 +7,7 @@ from tree import *
 
 class MyInception(nn.Module):
 
-    "myAlexNet(i.e. alexNet with only features cutted to 3rd conv layer)"
+    "myInception(i.e. Inception v3 with features extraction cutted to 3rd conv layer)"
 
     original_model =models.inception_v3(pretrained=True,aux_logits=False,transform_input=False)
 
@@ -33,7 +33,7 @@ class MyInception(nn.Module):
 
 class MyInceptionMap(torch.nn.Module):
 
-    "my alex for map i.e. same as myAlex but convlotuins go from one channel to one"
+    "my IncptionMap for image map i.e. same as Inception v3 but convlotuins going from one channel to another one"
 
     def __init__(self):
         super(MyInceptionMap, self).__init__()
