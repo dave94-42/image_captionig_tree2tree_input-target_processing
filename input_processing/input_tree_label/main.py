@@ -6,16 +6,6 @@ from dataset import myDataset
 
 def label_tree_with_data(alex_image, alex_map,x, image_map, tree,channel_dim):
 
-    """
-    function used to label tree structure previously build with cnn data
-    :param alex_image: cnn used for image i.e. alex_net until 3rd conv layer
-    :param alex_map: cnn use for map i.e. same as above but convoltions go grom one channel to one channel
-    :param x: real image
-    :param image_map: map
-    :param tree: previously built tree
-    :return:
-    """
-
     #real_image -> alex net
     y = alex_image.forward(x)
 
@@ -51,7 +41,7 @@ def label_tree_with_data(alex_image, alex_map,x, image_map, tree,channel_dim):
 
 def write_on_file(file_name,dataset):
     """
-    function to write tree, labled wit cnn_info, in file
+    function to write tree, labeled wit cnn_info, in file
     """
     f=open( file_name, "w+")
 
@@ -67,14 +57,15 @@ def extract_image_reshape(dict):
         to_return.append(el["image_resized"])
     return torch.cat(to_return)
 
-"""
+
+def main ():
+    """
     #arguments:
         #1)tree directory
         #2)image directory
 	#3) wich CNN to use (only inception or alexNet)
 	#4)file to produce
-"""
-def main ():
+    """
     #check arguments
     args = sys.argv[1:]
     #load data
